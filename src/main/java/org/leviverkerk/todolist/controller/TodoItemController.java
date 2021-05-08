@@ -56,15 +56,16 @@ public class TodoItemController {
     }
 
     @PostMapping(Mappings.ADD_ITEM)
-    public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) TodoItem todoItem) {
+    public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) TodoItem todoItem, @RequestParam(value = "action", required = true) String action) {
         log.info("todoItem from form {}", todoItem);
 
-        if (todoItem.getId() == 0){
-            todoItemService.addItem(todoItem);
-        } else {
-            todoItemService.updateItem(todoItem);
+        if (action.equals("save")){
+            if (todoItem.getId() == 0){
+                todoItemService.addItem(todoItem);
+            } else {
+                todoItemService.updateItem(todoItem);
+            }
         }
-
         return "redirect:/" + Mappings.ITEMS;
     }
 

@@ -1,4 +1,12 @@
 <thlogic>
     <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#title" th:text="|*{todoItem.getTitle()} #{add.title}|"/>
+    <attr sel="#form" th:object="${todoItem}"/>
+    <attr sel="input-id" th:field="*{id}" disabled="true"/>
+    <attr sel="input-title" th:field="*{title}"/>
+    <attr sel="input-deadline" th:field="*{deadline}"/>
+    <attr sel="input-details" th:field="*{details}"/>
+    <attr sel="button-submit" th:text="#{add.submit}"/>
+    <attr sel="button-cancel" th:text="#{add.cancel}"/>
     <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}"/>
 </thlogic>
