@@ -1,0 +1,11 @@
+<thlogic>
+    <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#new-item" th:href="@{addItem}"/>
+    <attr sel="#items-table" th:each="item: ${items}"/>
+    <attr sel="#item-title" th:text="${item.title}"/>
+    <attr sel="#item-deadline" th:text="${#temporals.format(item.deadline, 'dd-MM-yyyy')}"/>
+    <attr sel="#item-view-button" th:href="@{showItem(id=${item.id})}" th:text="View"/>
+    <attr sel="#item-edit-button" th:href="@{addItem(id=${item.id})}" th:text="Edit"/>
+    <attr sel="#item-delete-button" th:href="@{deleteItem(id=${item.id})}" th:text="Delete"/>
+    <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}"/>
+</thlogic>

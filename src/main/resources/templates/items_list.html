@@ -5,29 +5,31 @@
     <title>Title Content</title>
 </head>
 <body>
-<div align="center">
-    <c:url var="addUrl" value="${Mappings.ADD_ITEM}"/>
-    <a href="${addUrl}">New Item</a>
-    <table border="1" cellpadding="5">
+<div class="container" align="center">
+    <table class="table">
 
-        <caption><h2>Todo Items</h2></caption>
+        <caption><h2 class="title">Todo Items</h2></caption>
 
         <tr>
-            <th>Title</th>
-            <th>Deadline</th>
-            <th>View</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th class="title is-5">Title</th>
+            <th class="title is-5">Deadline</th>
+            <th class="title is-5">View</th>
+            <th class="title is-5">Edit</th>
+            <th class="title is-5">Delete</th>
         </tr>
 
-        <tr th:each="item: ${items}">
-            <td th:text="${item.title}" />
-            <td th:text="${item.deadline}"/>
-            <td th:href="@{view_item(id=${item.id})}" th:text="View"/>
-            <td th:href="@{add_item(id=${item.id})}" th:text="Edit"/>
-            <td th:href="@{deleteItem(id=${item.id})}" th:text="Delete"/>
+        <tr id="items-table">
+            <td id="item-title"/>
+            <td id="item-deadline"></td>
+            <td><a class="button is-info" id="item-view-button"></a></td>
+            <td><a class="button is-primary" id="item-edit-button"> </a></td>
+            <td><a class="button is-danger" id="item-delete-button"> </a></td>
         </tr>
     </table>
+    <a class="button is-primary" id="new-item">New Item</a>
+    <footer class="footer" id="footer">
+        Created by Name
+    </footer>
 </div>
 </body>
 </html>
