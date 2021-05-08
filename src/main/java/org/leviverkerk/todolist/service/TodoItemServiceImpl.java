@@ -30,7 +30,7 @@ public class TodoItemServiceImpl implements TodoItemService {
     @Override
     @Transactional
     public void addItem(TodoItem toAdd) {
-
+        todoItemDAO.addItem(toAdd);
     }
 
     @Override
