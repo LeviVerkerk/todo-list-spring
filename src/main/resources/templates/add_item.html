@@ -1,10 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head id="head">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Title Content</title>
 </head>
 <body>
-
+<div align="center">
+    <h1 class="title" th:text="|*{todoItem.getTitle()} #{add.title}|"></h1>
+    <form method="POST" th:object="${todoItem}">
+        <table class="table">
+            <tr>
+                <td><label class="label">ID</label></td>
+                <td>
+                    <input class="input" type="text" th:field="*{id}" disabled="true"/>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="label">Title</label></td>
+                <td>
+                    <input class="input" type="text" th:field="*{title}"/>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="label">Deadline</label></td>
+                <td>
+                    <input class="input" th:field="*{deadline}"/>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="label">Details</label></td>
+                <td>
+                    <textarea class="textarea" th:field="*{details}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="button is-link" type="submit" th:text="#{add.submit}">Submit Text</button>
+                </td>
+                <td>
+                    <button class="button is-link is-light" type="cancel" th:text="#{add.cancel}">Cancel Text</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<footer class="footer" id="footer">
+    Created by Name
+</footer>
 </body>
 </html>
