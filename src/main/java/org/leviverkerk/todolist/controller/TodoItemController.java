@@ -59,7 +59,7 @@ public class TodoItemController {
         return ViewNames.ADD_ITEM;
     }
 
-    @PostMapping(Mappings.SUBMITTED_ITEM)
+    @PostMapping(Mappings.ADD_ITEM)
     public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) TodoItem todoItem, @RequestParam(value = "action", required = true) String action) {
         log.info("todoItem from form {}", todoItem);
 
