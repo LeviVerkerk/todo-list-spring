@@ -1,7 +1,7 @@
 <thlogic>
     <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
     <attr sel="#new-item" th:href="@{addItem}"/>
-    <attr sel="#items-table" th:each="item: ${items}"/>
+    <attr sel="#items-table" th:each="item: ${items}" th:classappend="${item.due ? 'table-danger' : ''}"/>
     <attr sel="#item-title" th:text="${item.title}"/>
     <attr sel="#item-deadline" th:text="${#temporals.format(item.deadline, 'dd-MM-yyyy')}"/>
     <attr sel="#item-view-button" th:href="@{showItem(id=${item.id})}" th:text="View"/>

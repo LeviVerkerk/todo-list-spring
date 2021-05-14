@@ -3,6 +3,7 @@ package org.leviverkerk.todolist.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -28,13 +29,24 @@ public class TodoItem {
     @Column(name = "deadline")
     private LocalDate deadline;
 
+    @Transient
+    private boolean due;
+
     public TodoItem(String title, String details, LocalDate deadline) {
         this.title = title;
         this.details = details;
         this.deadline = deadline;
+
+        this.due = deadline.isBefore(LocalDate.now());
     }
 
     public TodoItem() {
+    }
 
+    public boolean isDue() {
+
+        this.due = deadline.isBefore(LocalDate.now());
+
+        return due;
     }
 }

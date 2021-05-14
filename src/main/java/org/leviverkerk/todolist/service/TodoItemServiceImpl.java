@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -54,6 +56,18 @@ public class TodoItemServiceImpl implements TodoItemService {
     @Override
     @Transactional
     public List<TodoItem> getItems() {
-        return todoItemDAO.getItems();
+
+        List<TodoItem> items = todoItemDAO.getItems();
+
+        log.info(items.toString());
+
+        Collections.sort(items, new Comparator<TodoItem>() {
+            @Override
+            public int compare(TodoItem o1, TodoItem o2) {
+                return o1.getDeadline().compareTo(o2.getDeadline());
+            }
+        });
+
+        return items;
     }
 }
