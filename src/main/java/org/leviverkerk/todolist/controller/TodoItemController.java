@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
 
@@ -33,7 +34,9 @@ public class TodoItemController {
 
     //  http://localhost:8080/items
     @GetMapping(Mappings.ITEMS)
-    public String items(Model model){
+    public String items(@RequestParam(required = false, defaultValue = "false") boolean isDeleted, Model model){
+
+        model.addAttribute("isDeleted", isDeleted);
 
         model.addAttribute("items", todoItemService.getItems());
 
@@ -70,10 +73,15 @@ public class TodoItemController {
     }
 
     @GetMapping(Mappings.DELETE_ITEM)
-    public String deleteItem(@RequestParam int id) {
+    public RedirectView deleteItem(@RequestParam int id, Model model) {
         log.info("removing item with id: {}", id);
         todoItemService.removeItem(id);
-        return "redirect:/" + Mappings.ITEMS;
+
+        RedirectView rv = new RedirectView();
+
+        rv.setUrl("/" + Mappings.ITEMS + "?isDeleted=true");
+
+        return rv;
     }
 
     @GetMapping(Mappings.SHOW_ITEM)

@@ -31,6 +31,11 @@
     </div>
     <div class="row">
         <div class="col">
+            <div class="alert alert-warning alert-dismissible fade show" th:if="${isDeleted}">
+                <h4 class="alert-heading">Watch out!</h4>
+                You are deleting a record!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+            </div>
             <table class="table">
                 <tr>
                     <th>Title</th>
@@ -51,29 +56,16 @@
         </div>
     </div>
 
-<!--    <div class="modal fade" id="deleteModal" tabindex="-1">-->
-<!--        <div class="modal-dialog">-->
-<!--            <div class="modal-content">-->
-<!--                <div class="modal-header">-->
-<!--                    <h5 class="modal-title">Deleting the item!</h5>-->
-<!--                    <button type="button" class="close" data-dismiss="modal">-->
-<!--                        <span aria-hidden="true">&times;</span>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    Are you sure you want to delete this item?-->
-<!--                </div>-->
-<!--                <div class="modal-footer">-->
-<!--                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                    <a class="btn btn-danger" id="item-delete-button"> </a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
     <footer class="footer" id="footer">
         footer text
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+            crossorigin="anonymous"></script>
 </div>
 
 </body>
