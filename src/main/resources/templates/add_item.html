@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:form="http://www.w3.org/1999/html">
 <head id="head">
     <meta charset="UTF-8">
     <title>Title Content</title>
@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3 p-4 my-4 shadow">
             <h1 class="text-center" id="title">Title text</h1>
-            <form method="POST" id="form">
+            <form action="/addItem" method="POST" id="form">
                 <div class="form-group">
                     <label for="id">ID</label>
                     <input class="form-control" type="text" th:field="*{id}" disabled="true" id="id"/>
@@ -38,6 +38,11 @@
                 </button>
 
                 <button class="btn btn-success mx-2 float-right" id="button-submit" type="submit" name="action" value="save">Submit Text</button>
+
+                <input
+                        type="hidden"
+                        th:name="${_csrf.parameterName}"
+                        th:value="${_csrf.token}" />
 
             </form>
         </div>

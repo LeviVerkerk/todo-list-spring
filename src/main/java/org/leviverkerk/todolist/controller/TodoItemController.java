@@ -53,19 +53,22 @@ public class TodoItemController {
             todoItem = new TodoItem("", "", LocalDate.now());
         }
 
+        log.info("[EDITING] TodoItem: {}", todoItem);
         model.addAttribute(AttributeNames.TODO_ITEM, todoItem);
 
         return ViewNames.ADD_ITEM;
     }
 
-    @PostMapping(Mappings.ADD_ITEM)
+    @PostMapping(Mappings.SUBMITTED_ITEM)
     public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) TodoItem todoItem, @RequestParam(value = "action", required = true) String action) {
         log.info("todoItem from form {}", todoItem);
 
         if (action.equals("save")){
             if (todoItem.getId() == 0){
+                log.info("[ADD_ITEM] Adding Item : {}", todoItem);
                 todoItemService.addItem(todoItem);
             } else {
+                log.info("[ADD_ITEM] Updating Item : {}", todoItem);
                 todoItemService.updateItem(todoItem);
             }
         }

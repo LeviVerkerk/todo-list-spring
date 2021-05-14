@@ -7,6 +7,7 @@ public final class Mappings {
     public static final String DELETE_ITEM = "deleteItem";
     public static final String SHOW_ITEM = "showItem";
     public static final String LOGIN = "login";
+    public static final String SUBMITTED_ITEM = "submittedItem";
 
     // == constructors
     private Mappings() {
