@@ -82,4 +82,9 @@ public class TodoItemController {
         model.addAttribute(AttributeNames.TODO_ITEM, todoItemService.getItem(id));
         return ViewNames.SHOW_ITEM;
     }
+
+    @GetMapping(Mappings.LOGIN)
+    public String login() {
+        return ViewNames.LOGIN;
+    }
 }

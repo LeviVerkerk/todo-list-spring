@@ -7,6 +7,7 @@ public final class ViewNames {
     public static final String ADD_ITEM = "add_item";
     public static final String HOME = "home";
     public static final String SHOW_ITEM = "view_item";
+    public static final String LOGIN = "login";
 
     // == constructors ==
     private ViewNames () {}

@@ -4,6 +4,6 @@
 
     <logger name="org.leviverkerk" level="DEBUG"/>
     <logger name="org.springframework" level="DEBUG"/>
-    <logger name="org.springframework.boot" level="INFO"/>
-    <logger name="org.thymeleaf" level="INFO"/>
+    <logger name="org.springframework.boot" level="DEBUG"/>
+    <logger name="org.thymeleaf" level="DEBUG"/>
 </configuration>

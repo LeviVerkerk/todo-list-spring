@@ -1,5 +1,8 @@
 <thlogic>
     <attr sel="#head-fragment" th:fragment="headFragment"/>
-    <attr sel="title" th:text="#{home.title}"/>
+    <attr sel="#title" th:text="#{home.title}"/>
+<!--    <attr sel="#main-css" th:href="@{/css/main.css}"/>-->
+<!--    <attr sel="#bootstrap-css" th:href="@{/css/bootstrap.css}"/>-->
+<!--    <attr sel="#bootstrap-js" th:src="@{/js/bootstrap.js}"/>-->
 
 </thlogic>

@@ -5,31 +5,76 @@
     <title>Title Content</title>
 </head>
 <body>
-<div class="container" align="center">
-    <table class="table">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1"><i class="fas fa-check-square"></i> Todo List</span>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#myNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="myNav">
+            <form th:action="@{/logout}" method="post">
+                <input class="btn btn-success" type="submit" value="Sign Out"/>
+            </form>
+        </div>
+    </div>
 
-        <caption><h2 class="title">Todo Items</h2></caption>
+</nav>
 
-        <tr>
-            <th class="title is-5">Title</th>
-            <th class="title is-5">Deadline</th>
-            <th class="title is-5">View</th>
-            <th class="title is-5">Edit</th>
-            <th class="title is-5">Delete</th>
-        </tr>
+<div class="container">
 
-        <tr id="items-table">
-            <td id="item-title"/>
-            <td id="item-deadline"></td>
-            <td><a class="button is-info" id="item-view-button"></a></td>
-            <td><a class="button is-primary" id="item-edit-button"> </a></td>
-            <td><a class="button is-danger" id="item-delete-button"> </a></td>
-        </tr>
-    </table>
-    <a class="button is-primary" id="new-item">New Item</a>
+    <div id="jumbo" class="jumbotron jumbotron-fluid text-white">
+        <div class="container">
+            <h1 class="display-4">Todo Items</h1>
+            <p class="lead">Welcome to the Todo List Application made by Levi Verkerk. This is a hobby project to get familiar with Spring Boot, Hibernate JPA and Spring Security.</p>
+            <a class="btn btn-danger btn-lg" id="new-item">Add new item!</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <tr>
+                    <th class="title is-5">Title</th>
+                    <th class="title is-5">Deadline</th>
+                    <th class="title is-5">View</th>
+                    <th class="title is-5">Edit</th>
+                    <th class="title is-5">Delete</th>
+                </tr>
+
+                <tr id="items-table">
+                    <td id="item-title"/>
+                    <td id="item-deadline"></td>
+                    <td><a class="btn btn-info" id="item-view-button"></a></td>
+                    <td><a class="btn btn-primary" id="item-edit-button"> </a></td>
+                    <td> <a class="btn btn-danger" id="item-delete-button"> </a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+<!--    <div class="modal fade" id="deleteModal" tabindex="-1">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title">Deleting the item!</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    Are you sure you want to delete this item?-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                    <a class="btn btn-danger" id="item-delete-button"> </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
     <footer class="footer" id="footer">
-        Created by Name
+        footer text
     </footer>
 </div>
+
 </body>
 </html>
