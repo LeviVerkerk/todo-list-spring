@@ -1,5 +1,6 @@
 <thlogic>
     <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#navbar" th:replace="~{fragments/navbar :: navFragment}"/>
     <attr sel="#id" th:text="|Todo Item: ${todoItem.id}|"/>
     <attr sel="#title" th:text="${todoItem.title}"/>
     <attr sel="#deadline" th:text="${#temporals.format(todoItem.deadline, 'dd-MM-yyyy')}"/>

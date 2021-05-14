@@ -1,6 +1,9 @@
 <thlogic>
     <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
     <attr sel="#new-item" th:href="@{addItem}"/>
+    <attr sel="#delete-alert"  th:if="${isDeleted}"/>
+    <attr sel="#delete-title" th:text="#{list.alert.delete.title}"/>
+    <attr sel="#delete-body" th:text="#{list.alert.delete.body}"/>
     <attr sel="#items-table" th:each="item: ${items}" th:classappend="${item.due ? 'table-danger' : ''}"/>
     <attr sel="#item-title" th:text="${item.title}"/>
     <attr sel="#item-deadline" th:text="${#temporals.format(item.deadline, 'dd-MM-yyyy')}"/>

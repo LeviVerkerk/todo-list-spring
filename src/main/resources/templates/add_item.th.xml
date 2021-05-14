@@ -1,5 +1,6 @@
 <thlogic>
     <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#navbar" th:replace="~{fragments/navbar :: navFragment}"/>
     <attr sel="#title" th:text="|*{todoItem.getTitle()} #{add.title}|"/>
     <attr sel="#form" th:action="@{addItem}" th:object="${todoItem}"/>
     <attr sel="#input-id" th:field="*{id}" disabled="true"/>

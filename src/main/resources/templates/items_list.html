@@ -25,15 +25,16 @@
     <div id="jumbo" class="jumbotron jumbotron-fluid text-white">
         <div class="container">
             <h1 class="display-4">Todo Items</h1>
-            <p class="lead">Welcome to the Todo List Application made by Levi Verkerk. This is a hobby project to get familiar with Spring Boot, Hibernate JPA and Spring Security.</p>
+            <p class="lead">Welcome to the Todo List Application made by Levi Verkerk. This is a hobby project to get
+                familiar with Spring Boot, Hibernate JPA and Spring Security.</p>
             <a class="btn btn-danger btn-lg" id="new-item">Add new item!</a>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <div class="alert alert-warning alert-dismissible fade show" th:if="${isDeleted}">
-                <h4 class="alert-heading">Watch out!</h4>
-                You are deleting a record!
+            <div class="alert alert-warning alert-dismissible fade show" id="delete-alert">
+                <h4 class="alert-heading" id="delete-title">Watch out!</h4>
+                <p id="delete-body">You are deleting a record!</p>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
             </div>
             <table class="table">
@@ -50,7 +51,7 @@
                     <td class="" id="item-deadline"></td>
                     <td class=""><a class="btn btn-info" id="item-view-button"></a></td>
                     <td class=""><a class="btn btn-primary" id="item-edit-button"> </a></td>
-                    <td class=""> <a class="btn btn-danger" id="item-delete-button"> </a></td>
+                    <td class=""><a class="btn btn-danger" id="item-delete-button"> </a></td>
                 </tr>
             </table>
         </div>
