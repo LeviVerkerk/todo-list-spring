@@ -43,7 +43,7 @@ public class TodoItemController {
 
         model.addAttribute("items", todoItemService.getItems());
 
-        model.addAttribute("username",  ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername() );
+        model.addAttribute("username",  ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFirstName() );
 
         return ViewNames.ITEMS_LIST;
     }
