@@ -27,18 +27,22 @@
             </div>
             <table class="table">
                 <tr>
-                    <th>
-                        <a th:href="@{/items(sort-field='title', sort-dir= ${reverseSortDir})}">Title</a>
+                    <th scope="col">
+                        <a th:href="@{/items(size=${pageSize}, page=${currentPage} ,sort-field='title', sort-dir= ${reverseSortDir})}">Title</a>
+                        <span class="float-right" th:if="${sortField == 'title' && sortDir == 'asc'}"><i class="fas fa-arrow-up"></i></span>
+                        <span class="float-right" th:if="${sortField == 'title' && sortDir == 'desc'}"><i class="fas fa-arrow-down"></i></span>
                     </th>
-                    <th>
+                    <th scope="col">
                         <a th:href="@{/items(size=${pageSize}, page=${currentPage} ,sort-field='deadline', sort-dir= ${reverseSortDir})}">Deadline</a>
+                        <span class="float-right" th:if="${sortField == 'deadline' && sortDir == 'asc'}"><i class="fas fa-arrow-up"></i></span>
+                        <span class="float-right" th:if="${sortField == 'deadline' && sortDir == 'desc'}"><i class="fas fa-arrow-down"></i></span>
                     </th>
-                    <th>View</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th scope="col">View</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                 </tr>
 
-                <tr class="" id="items-table">
+                <tr class="" id="items-table" scope="row">
                     <td class="" id="item-title"/>
                     <td class="" id="item-deadline"></td>
                     <td class=""><a class="btn btn-info" id="item-view-button"></a></td>
