@@ -4,14 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.leviverkerk.todolist.repository.TodoItemRepository;
 import org.leviverkerk.todolist.model.TodoItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -53,25 +49,41 @@ public class TodoItemServiceImpl implements TodoItemService {
 
     @Override
     @Transactional
-    public List<TodoItem> getItems() {
+    public List<TodoItem> getItems(String sortField, String sortDir) {
 
         List<TodoItem> items = todoItemRepository.getItems();
 
         log.info(items.toString());
 
-        Collections.sort(items, new Comparator<TodoItem>() {
-            @Override
-            public int compare(TodoItem o1, TodoItem o2) {
-                return o1.getDeadline().compareTo(o2.getDeadline());
-            }
-        });
+        switch (sortField) {
+            case "title":
+                if (sortDir.equalsIgnoreCase("asc")){
+                    items.sort(Comparator.comparing(TodoItem::getTitle));
+                }
+                else {
+                    items.sort(Comparator.comparing(TodoItem::getTitle).reversed());
+                }
+                break;
+            case "deadline":
+                if (sortDir.equalsIgnoreCase("asc")){
+                    items.sort(Comparator.comparing(TodoItem::getDeadline));
+                }
+                else {
+                    items.sort(Comparator.comparing(TodoItem::getDeadline).reversed());
+                }
+                break;
+            default:
+                items.sort(Comparator.comparing(TodoItem::getDeadline));
+                break;
+        }
+
 
         return items;
     }
 
-    public Page<TodoItem> findPaginated(Pageable pageable) {
+    public Page<TodoItem> findPaginated(Pageable pageable, String sortField, String sortDir) {
 
-        List<TodoItem> items = getItems();
+        List<TodoItem> items = getItems(sortField, sortDir);
 
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
@@ -85,8 +97,10 @@ public class TodoItemServiceImpl implements TodoItemService {
             list = items.subList(startItem, toIndex);
         }
 
+        Pageable page = PageRequest.of(currentPage, pageSize);
+
         Page<TodoItem> itemPage
-                = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), items.size());
+                = new PageImpl<>(list, page, items.size());
 
         return itemPage;
     }

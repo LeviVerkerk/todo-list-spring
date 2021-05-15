@@ -27,14 +27,22 @@
             </div>
             <table class="table">
                 <tr>
-                    <th>Title</th>
-                    <th>Deadline</th>
-                    <th>View</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th scope="col">
+                        <a id="title-sort">Title</a>
+                        <span class="float-right" id="title-uparrow"><i class="fas fa-arrow-up"></i></span>
+                        <span class="float-right" id="title-downarrow"><i class="fas fa-arrow-down"></i></span>
+                    </th>
+                    <th scope="col">
+                        <a id="deadline-sort">Deadline</a>
+                        <span class="float-right" id="deadline-uparrow"><i class="fas fa-arrow-up"></i></span>
+                        <span class="float-right" id="deadline-downarrow"><i class="fas fa-arrow-down"></i></span>
+                    </th>
+                    <th scope="col">View</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                 </tr>
 
-                <tr class="" id="items-table">
+                <tr class="" id="items-table" scope="row">
                     <td class="" id="item-title"/>
                     <td class="" id="item-deadline"></td>
                     <td class=""><a class="btn btn-info" id="item-view-button"></a></td>
@@ -46,7 +54,7 @@
                 <ul class="pagination justify-content-center" th:if="${itemPage.totalPages > 1}">
                     <th:block th:each="pageNumber : ${pageNumbers}">
                         <li class="page-item" th:classappend="${pageNumber==itemPage.number + 1} ? active">
-                            <a class="page-link" th:href="@{/items(size=${itemPage.size}, page=${pageNumber})}"
+                            <a class="page-link" th:href="@{/items(size=${itemPage.size}, page=${pageNumber}, sort-field=${sortField}, sort-dir=${sortDir})}"
                             th:text="${pageNumber}"></a>
                         </li>
                     </th:block>

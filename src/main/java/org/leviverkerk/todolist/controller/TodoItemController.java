@@ -43,19 +43,33 @@ public class TodoItemController {
     @RequestMapping(value = Mappings.ITEMS, method = RequestMethod.GET)
     public String items(@RequestParam("page") Optional<Integer> page,
                         @RequestParam("size") Optional<Integer> size,
+                        @RequestParam("sort-field") Optional<String> field,
+                        @RequestParam("sort-dir") Optional<String> dir,
                         @RequestParam(required = false, defaultValue = "false") boolean isDeleted,
                         Model model){
 
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
-        Page<TodoItem> todoItemPage = todoItemService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        String sortField = field.orElse("deadline");
+        String sortDir = dir.orElse("asc");
+
+        log.info("Requesting todoItemPage with sortField : {} and sortDir : {}", sortField, sortDir);
+
+        Page<TodoItem> todoItemPage = todoItemService.findPaginated(PageRequest.of(currentPage - 1, pageSize), sortField, sortDir);
 
         model.addAttribute("isDeleted", isDeleted);
 
         model.addAttribute("itemPage", todoItemPage);
 
         model.addAttribute("username",  ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFirstName() );
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("pageSize", pageSize);
 
         int totalPages = todoItemPage.getTotalPages();
         if (totalPages > 0) {

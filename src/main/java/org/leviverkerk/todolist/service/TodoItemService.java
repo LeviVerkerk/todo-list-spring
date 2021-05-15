@@ -16,7 +16,7 @@ public interface TodoItemService {
 
     void updateItem(TodoItem toUpdate);
 
-    List<TodoItem> getItems();
+    List<TodoItem> getItems(String sortField, String sortDir);
 
-    Page<TodoItem> findPaginated(Pageable pageable);
+    Page<TodoItem> findPaginated(Pageable pageable, String sortField, String sortDir);
 }
