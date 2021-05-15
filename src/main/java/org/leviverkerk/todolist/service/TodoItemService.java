@@ -1,8 +1,6 @@
 package org.leviverkerk.todolist.service;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.leviverkerk.todolist.entity.TodoItem;
+import org.leviverkerk.todolist.model.TodoItem;
 
 import java.util.List;
 

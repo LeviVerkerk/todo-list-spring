@@ -1,12 +1,15 @@
 package org.leviverkerk.todolist.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.leviverkerk.todolist.entity.TodoItem;
+import org.leviverkerk.todolist.model.MyUserDetails;
+import org.leviverkerk.todolist.model.TodoItem;
+import org.leviverkerk.todolist.model.User;
 import org.leviverkerk.todolist.service.TodoItemService;
 import org.leviverkerk.todolist.util.AttributeNames;
 import org.leviverkerk.todolist.util.Mappings;
 import org.leviverkerk.todolist.util.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +42,8 @@ public class TodoItemController {
         model.addAttribute("isDeleted", isDeleted);
 
         model.addAttribute("items", todoItemService.getItems());
+
+        model.addAttribute("username",  ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername() );
 
         return ViewNames.ITEMS_LIST;
     }

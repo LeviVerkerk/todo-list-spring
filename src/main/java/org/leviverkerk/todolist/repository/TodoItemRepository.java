@@ -1,10 +1,10 @@
-package org.leviverkerk.todolist.dao;
+package org.leviverkerk.todolist.repository;
 
-import org.leviverkerk.todolist.entity.TodoItem;
+import org.leviverkerk.todolist.model.TodoItem;
 
 import java.util.List;
 
-public interface TodoItemDAO {
+public interface TodoItemRepository {
 
     void addItem(TodoItem toAdd);
 

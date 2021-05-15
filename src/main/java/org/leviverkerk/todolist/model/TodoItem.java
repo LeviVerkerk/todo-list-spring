@@ -1,15 +1,12 @@
-package org.leviverkerk.todolist.entity;
+package org.leviverkerk.todolist.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
-@ToString
 @Entity
 @Table(name = "items")
 public class TodoItem {
@@ -28,6 +25,10 @@ public class TodoItem {
 
     @Column(name = "deadline")
     private LocalDate deadline;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Transient
     private boolean due;
@@ -48,5 +49,16 @@ public class TodoItem {
         this.due = deadline.isBefore(LocalDate.now());
 
         return due;
+    }
+
+    @Override
+    public String toString() {
+        return "TodoItem{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", details='" + details + '\'' +
+                ", deadline=" + deadline +
+                ", due=" + due +
+                '}';
     }
 }

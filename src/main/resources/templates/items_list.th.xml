@@ -1,5 +1,7 @@
 <thlogic>
     <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#navbar" th:replace="~{fragments/navbar :: navFragment}"/>
+    <attr sel="#subtitle" th:text="|Welcome ${username}|"/>
     <attr sel="#new-item" th:href="@{addItem}"/>
     <attr sel="#delete-alert"  th:if="${isDeleted}"/>
     <attr sel="#delete-title" th:text="#{list.alert.delete.title}"/>

@@ -1,24 +1,30 @@
-package org.leviverkerk.todolist.dao;
+package org.leviverkerk.todolist.repository;
 
 import com.sun.istack.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
-import org.leviverkerk.todolist.entity.TodoItem;
+import org.leviverkerk.todolist.model.MyUserDetails;
+import org.leviverkerk.todolist.model.TodoItem;
+import org.leviverkerk.todolist.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
 @Slf4j
-public class TodoItemDAOHibernateImpl implements TodoItemDAO{
+public class TodoItemRepositoryHibernateImpl implements TodoItemRepository {
 
     private EntityManager entityManager;
 
+//    private MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
     @Autowired
-    public TodoItemDAOHibernateImpl(EntityManager entityManager) {
+    public TodoItemRepositoryHibernateImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -26,6 +32,10 @@ public class TodoItemDAOHibernateImpl implements TodoItemDAO{
     @Transactional
     public void addItem(@NotNull TodoItem toAdd) {
         try (Session session = entityManager.unwrap(Session.class)) {
+            log.debug("[TodoItemService] Getting current user..");
+            User user = session.get(User.class, ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+            log.debug("[TodoItemService] Current user is : {}", user);
+            toAdd.setUser(user );
             log.debug("[TodoItemService] Adding new item : {}", toAdd);
             session.save(toAdd);
             log.info("[TodoItemService] Saved : {}", toAdd);
@@ -65,8 +75,12 @@ public class TodoItemDAOHibernateImpl implements TodoItemDAO{
     @Transactional
     public List<TodoItem> getItems() {
         try (Session session = entityManager.unwrap(Session.class)){
-            List<TodoItem> output = session.createQuery("from TodoItem ", TodoItem.class).getResultList();
-            return output;
+
+            User user = session.get(User.class, ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+            if (user != null){
+                return user.getItems();
+            }
+            return new LinkedList<>();
         }
     }
 
@@ -74,6 +88,8 @@ public class TodoItemDAOHibernateImpl implements TodoItemDAO{
     @Transactional
     public void updateItem(TodoItem toUpdate) {
         try (Session session = entityManager.unwrap(Session.class)) {
+            User user = session.get(User.class, ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+            toUpdate.setUser(user);
             log.info("[TodoItemService] updating todoItem to : {}", toUpdate);
             session.update(toUpdate);
         }
