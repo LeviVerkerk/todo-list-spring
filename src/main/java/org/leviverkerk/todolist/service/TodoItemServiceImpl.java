@@ -5,11 +5,13 @@ import org.leviverkerk.todolist.repository.TodoItemRepository;
 import org.leviverkerk.todolist.model.TodoItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -65,5 +67,27 @@ public class TodoItemServiceImpl implements TodoItemService {
         });
 
         return items;
+    }
+
+    public Page<TodoItem> findPaginated(Pageable pageable) {
+
+        List<TodoItem> items = getItems();
+
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<TodoItem> list;
+
+        if (items.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, items.size());
+            list = items.subList(startItem, toIndex);
+        }
+
+        Page<TodoItem> itemPage
+                = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), items.size());
+
+        return itemPage;
     }
 }
