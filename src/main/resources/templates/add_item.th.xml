@@ -1,7 +1,7 @@
 <thlogic>
     <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
     <attr sel="#navbar" th:replace="~{fragments/navbar :: navFragment}"/>
-    <attr sel="#title" th:text="|*{todoItem.getTitle()} #{add.title}|"/>
+    <attr sel="#title" th:text="${todoItem.id == 0 ? 'Adding new item' : 'Editing item' }"/>
     <attr sel="#form" th:object="${todoItem}"/>
     <attr sel="#id" th:field="*{id}" disabled="true"/>
     <attr sel="#title-field" th:field="*{title}"/>
