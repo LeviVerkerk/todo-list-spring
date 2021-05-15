@@ -27,8 +27,12 @@
             </div>
             <table class="table">
                 <tr>
-                    <th>Title</th>
-                    <th>Deadline</th>
+                    <th>
+                        <a th:href="@{/items(sort-field='title', sort-dir= ${reverseSortDir})}">Title</a>
+                    </th>
+                    <th>
+                        <a th:href="@{/items(size=${pageSize}, page=${currentPage} ,sort-field='deadline', sort-dir= ${reverseSortDir})}">Deadline</a>
+                    </th>
                     <th>View</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -46,7 +50,7 @@
                 <ul class="pagination justify-content-center" th:if="${itemPage.totalPages > 1}">
                     <th:block th:each="pageNumber : ${pageNumbers}">
                         <li class="page-item" th:classappend="${pageNumber==itemPage.number + 1} ? active">
-                            <a class="page-link" th:href="@{/items(size=${itemPage.size}, page=${pageNumber})}"
+                            <a class="page-link" th:href="@{/items(size=${itemPage.size}, page=${pageNumber}, sort-field=${sortField}, sort-dir=${sortDir})}"
                             th:text="${pageNumber}"></a>
                         </li>
                     </th:block>
