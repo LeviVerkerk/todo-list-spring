@@ -28,14 +28,14 @@
             <table class="table">
                 <tr>
                     <th scope="col">
-                        <a th:href="@{/items(size=${pageSize}, page=${currentPage} ,sort-field='title', sort-dir= ${reverseSortDir})}">Title</a>
-                        <span class="float-right" th:if="${sortField == 'title' && sortDir == 'asc'}"><i class="fas fa-arrow-up"></i></span>
-                        <span class="float-right" th:if="${sortField == 'title' && sortDir == 'desc'}"><i class="fas fa-arrow-down"></i></span>
+                        <a id="title-sort">Title</a>
+                        <span class="float-right" id="title-uparrow"><i class="fas fa-arrow-up"></i></span>
+                        <span class="float-right" id="title-downarrow"><i class="fas fa-arrow-down"></i></span>
                     </th>
                     <th scope="col">
-                        <a th:href="@{/items(size=${pageSize}, page=${currentPage} ,sort-field='deadline', sort-dir= ${reverseSortDir})}">Deadline</a>
-                        <span class="float-right" th:if="${sortField == 'deadline' && sortDir == 'asc'}"><i class="fas fa-arrow-up"></i></span>
-                        <span class="float-right" th:if="${sortField == 'deadline' && sortDir == 'desc'}"><i class="fas fa-arrow-down"></i></span>
+                        <a id="deadline-sort">Deadline</a>
+                        <span class="float-right" id="deadline-uparrow"><i class="fas fa-arrow-up"></i></span>
+                        <span class="float-right" id="deadline-downarrow"><i class="fas fa-arrow-down"></i></span>
                     </th>
                     <th scope="col">View</th>
                     <th scope="col">Edit</th>

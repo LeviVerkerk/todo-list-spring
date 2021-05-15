@@ -1,16 +1,33 @@
 <thlogic>
     <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
     <attr sel="#navbar" th:replace="~{fragments/navbar :: navFragment}"/>
+
     <attr sel="#subtitle" th:text="|Welcome ${username}|"/>
     <attr sel="#new-item" th:href="@{addItem}"/>
+
     <attr sel="#delete-alert"  th:if="${isDeleted}"/>
     <attr sel="#delete-title" th:text="#{list.alert.delete.title}"/>
     <attr sel="#delete-body" th:text="#{list.alert.delete.body}"/>
+
+    <attr sel="#title-sort" th:href="@{/items(size=${pageSize}, page=${currentPage} ,sort-field='title', sort-dir= ${reverseSortDir})}"/>
+    <attr sel="#title-uparrow" th:if="${sortField == 'title' && sortDir == 'asc'}"/>
+    <attr sel="#title-downarrow" th:if="${sortField == 'title' && sortDir == 'desc'}"/>
+    <attr sel="#deadline-sort" th:href="@{/items(size=${pageSize}, page=${currentPage} ,sort-field='deadline', sort-dir= ${reverseSortDir})}"/>
+    <attr sel="#deadline-uparrow" th:if="${sortField == 'deadline' && sortDir == 'asc'}"/>
+    <attr sel="#deadline-downarrow" th:if="${sortField == 'deadline' && sortDir == 'desc'}"/>
+
     <attr sel="#items-table" th:each="item, iStat : ${itemPage.content}" th:classappend="${item.due ? 'table-danger' : ''}"/>
     <attr sel="#item-title" th:text="${item.title}"/>
     <attr sel="#item-deadline" th:text="${#temporals.format(item.deadline, 'dd-MM-yyyy')}"/>
     <attr sel="#item-view-button" th:href="@{showItem(id=${item.id})}" th:text="View"/>
     <attr sel="#item-edit-button" th:href="@{addItem(id=${item.id})}" th:text="Edit"/>
     <attr sel="#item-delete-button" th:href="@{deleteItem(id=${item.id})}" th:text="Delete"/>
+
+    <attr sel="#page-bar" th:if="${itemPage.totalPages > 1}"/>
+    <attr sel="#pages" th:each="pageNumber : ${pageNumbers}"/>
+    <attr sel="#page-item" th:classappend="${pageNumber==itemPage.number + 1} ? active"/>
+    <attr sel="#page-link" th:href="@{/items(size=${itemPage.size}, page=${pageNumber}, sort-field=${sortField}, sort-dir=${sortDir})}"
+          th:text="${pageNumber}"/>
+
     <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}"/>
 </thlogic>
