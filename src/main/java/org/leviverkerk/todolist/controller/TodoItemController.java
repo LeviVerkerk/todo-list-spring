@@ -9,16 +9,20 @@ import org.leviverkerk.todolist.util.AttributeNames;
 import org.leviverkerk.todolist.util.Mappings;
 import org.leviverkerk.todolist.util.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.awt.print.Book;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Controller
@@ -36,14 +40,30 @@ public class TodoItemController {
     //  == handler methods ==
 
     //  http://localhost:8080/items
-    @GetMapping(Mappings.ITEMS)
-    public String items(@RequestParam(required = false, defaultValue = "false") boolean isDeleted, Model model){
+    @RequestMapping(value = Mappings.ITEMS, method = RequestMethod.GET)
+    public String items(@RequestParam("page") Optional<Integer> page,
+                        @RequestParam("size") Optional<Integer> size,
+                        @RequestParam(required = false, defaultValue = "false") boolean isDeleted,
+                        Model model){
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<TodoItem> todoItemPage = todoItemService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
 
         model.addAttribute("isDeleted", isDeleted);
 
-        model.addAttribute("items", todoItemService.getItems());
+        model.addAttribute("itemPage", todoItemPage);
 
         model.addAttribute("username",  ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFirstName() );
+
+        int totalPages = todoItemPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
 
         return ViewNames.ITEMS_LIST;
     }

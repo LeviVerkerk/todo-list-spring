@@ -18,7 +18,7 @@
             <a class="btn btn-danger btn-lg" id="new-item">Add new item!</a>
         </div>
     </div>
-    <div class="row">
+    <nav class="row">
         <div class="col">
             <div class="alert alert-warning alert-dismissible fade show" id="delete-alert">
                 <h4 class="alert-heading" id="delete-title">Watch out!</h4>
@@ -42,6 +42,16 @@
                     <td class=""><a class="btn btn-danger" id="item-delete-button"> </a></td>
                 </tr>
             </table>
+            <nav class="paging">
+                <ul class="pagination justify-content-center" th:if="${itemPage.totalPages > 1}">
+                    <th:block th:each="pageNumber : ${pageNumbers}">
+                        <li class="page-item" th:classappend="${pageNumber==itemPage.number + 1} ? active">
+                            <a class="page-link" th:href="@{/items(size=${itemPage.size}, page=${pageNumber})}"
+                            th:text="${pageNumber}"></a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
         </div>
     </div>
 
