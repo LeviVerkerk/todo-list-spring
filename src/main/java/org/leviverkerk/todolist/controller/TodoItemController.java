@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.leviverkerk.todolist.model.MyUserDetails;
 import org.leviverkerk.todolist.model.TodoItem;
 import org.leviverkerk.todolist.model.User;
+import org.leviverkerk.todolist.model.UserDto;
+import org.leviverkerk.todolist.service.IUserService;
 import org.leviverkerk.todolist.service.TodoItemService;
 import org.leviverkerk.todolist.util.AttributeNames;
 import org.leviverkerk.todolist.util.Mappings;
@@ -12,12 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.awt.print.Book;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -30,11 +37,13 @@ public class TodoItemController {
 
     //  == fields ==
     private final TodoItemService todoItemService;
+    private final IUserService userService;
 
     //  == constructors ==
     @Autowired
-    public TodoItemController(TodoItemService todoItemService) {
+    public TodoItemController(TodoItemService todoItemService, IUserService userService) {
         this.todoItemService = todoItemService;
+        this.userService = userService;
     }
 
     //  == handler methods ==
@@ -136,5 +145,27 @@ public class TodoItemController {
     @GetMapping(Mappings.LOGIN)
     public String login() {
         return ViewNames.LOGIN;
+    }
+
+    @GetMapping(Mappings.REGISTER)
+    public String register(WebRequest request, Model model) {
+        UserDto userDto = new UserDto();
+        model.addAttribute("user", userDto);
+        return ViewNames.REGISTER;
+    }
+
+    @PostMapping(Mappings.REGISTER)
+    public ModelAndView register (
+            @ModelAttribute("user") @Valid UserDto userDto,
+            HttpServletRequest request,
+            Errors errors) {
+
+        try {
+            User registered = userService.registerNewUserAccount(userDto);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return new ModelAndView(ViewNames.LOGIN, "user", userDto);
     }
 }

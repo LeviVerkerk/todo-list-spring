@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: headFragment}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-6 offset-3 col-md-4 offset-md-4 shadow">
+            <h3 class="text-center my-4">Sign In</h3>
+            <form action="/" th:object="${user}" method="post" enctype="utf8">
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label th:text="First Name">first</label>
+                        <input class="form-control" placeholder="Enter first name..." th:field="*{firstName}"/>
+                        <p th:each="error: ${#fields.errors('firstName')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group col-md">
+                        <label th:text="Last Name">last</label>
+                        <input class="form-control" placeholder="Enter last name..." th:field="*{lastName}"/>
+                        <p th:each="error: ${#fields.errors('lastName')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label th:text="Email address">email</label>
+                        <input type="email" th:field="*{email}"/>
+                        <p th:each="error : ${#fields.errors('email')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Username" name="username" th:field="*{username}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label th:text="Password">password</label>
+                        <input type="password" class="form-control" placeholder="Password" name="password" th:field="*{password}">
+                        <p th:each="error : ${#fields.errors('password')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group col">
+                        <label th:text="Confirm Password">Confirm</label>
+                        <input type="password" class="form-control" placeholder="Password" name="password" th:field="*{matchingPassword}">
+                    </div>
+                </div>
+
+
+                <button type="submit" th:text="Submit" class="btn btn-lg btn-info btn-block my-3">submit</button>
+            </form>
+
+            <a th:href="@{login}" th:text="Log In">login</a>
+        </div>
+    </div>
+
+    <footer class="footer" id="footer">
+        footer text
+    </footer>
+
+</div>
+
+
+</body>
+</html>
