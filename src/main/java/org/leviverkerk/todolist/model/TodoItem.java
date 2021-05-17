@@ -4,7 +4,11 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.swing.text.html.HTML;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -26,6 +30,11 @@ public class TodoItem {
     @Column(name = "deadline")
     private LocalDate deadline;
 
+    @Column(name = "tags")
+    @Enumerated
+    @ElementCollection(targetClass = Tags.class)
+    private List<Tags> tags;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -33,10 +42,11 @@ public class TodoItem {
     @Transient
     private boolean due;
 
-    public TodoItem(String title, String details, LocalDate deadline) {
+    public TodoItem(String title, String details, LocalDate deadline, Tags[] tags) {
         this.title = title;
         this.details = details;
         this.deadline = deadline;
+        this.tags = Arrays.stream(tags).collect(Collectors.toList());
 
         this.due = deadline.isBefore(LocalDate.now());
     }
@@ -51,6 +61,10 @@ public class TodoItem {
         return due;
     }
 
+    public void addTag(Tags tag){
+        tags.add(tag);
+    }
+
     @Override
     public String toString() {
         return "TodoItem{" +
@@ -58,6 +72,7 @@ public class TodoItem {
                 ", title='" + title + '\'' +
                 ", details='" + details + '\'' +
                 ", deadline=" + deadline +
+                ", tags=" + tags +
                 ", due=" + due +
                 '}';
     }

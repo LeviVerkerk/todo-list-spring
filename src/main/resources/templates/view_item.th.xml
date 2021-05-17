@@ -3,6 +3,12 @@
     <attr sel="#navbar" th:replace="~{fragments/navbar :: navFragment}"/>
     <attr sel="#id" th:text="|Todo Item: ${todoItem.id}|"/>
     <attr sel="#title" th:text="${todoItem.title}"/>
+
+    <attr sel="#item-tags" th:each="tag : ${todoItem.tags}"/>
+    <attr sel="#private-badge" th:if="${tag.string == 'private'}"/>
+    <attr sel="#school-badge" th:if="${tag.string == 'school'}"/>
+    <attr sel="#business-badge" th:if="${tag.string == 'business'}"/>
+
     <attr sel="#deadline" th:text="${#temporals.format(todoItem.deadline, 'dd-MM-yyyy')}"/>
     <attr sel="#details" th:text="${todoItem.details}"/>
     <attr sel="#home" th:href="items" th:text="#{view.home}"/>

@@ -28,6 +28,12 @@
     <attr sel="#items-table" th:each="item, iStat : ${itemPage.content}"
           th:classappend="${item.due ? 'table-danger' : ''}"/>
     <attr sel="#item-title" th:text="${item.title}"/>
+
+    <attr sel="#item-tags" th:each="tag : ${item.tags}"/>
+    <attr sel="#private-badge" th:if="${tag.string == 'private'}"/>
+    <attr sel="#school-badge" th:if="${tag.string == 'school'}"/>
+    <attr sel="#business-badge" th:if="${tag.string == 'business'}"/>
+
     <attr sel="#item-deadline" th:text="${#temporals.format(item.deadline, 'dd-MM-yyyy')}"/>
     <attr sel="#item-view-button" th:href="@{showItem(id=${item.id})}" th:utext="#{list.header.view}"/>
     <attr sel="#item-edit-button" th:href="@{addItem(id=${item.id})}" th:utext="#{list.header.edit}"/>

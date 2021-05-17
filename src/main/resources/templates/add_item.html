@@ -34,6 +34,15 @@
                     <textarea class="form-control" id="details"/>
                 </div>
 
+                <div class="form-group">
+                    <th:block th:each="tag : ${tags}">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="tag-input">
+                            <label class="custom-control-label" id="tag-label">PlaceHolder for Tag Text</label>
+                        </div>
+                    </th:block>
+                </div>
+
                 <button class="btn btn-danger mx-2 float-right" id="button-cancel" type="submit" name="action" value="cancel">Cancel Text
                 </button>
 
