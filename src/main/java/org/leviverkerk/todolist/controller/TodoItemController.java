@@ -107,8 +107,6 @@ public class TodoItemController {
                               @RequestParam(value = "action", required = true) String action) {
         log.info("todoItem from form {}", todoItem);
 
-        todoItem.setTags(Arrays.stream(tags).collect(Collectors.toList()));
-
         if (action.equals("save")){
             if (todoItem.getId() == 0){
                 log.info("[ADD_ITEM] Adding Item : {}", todoItem);
