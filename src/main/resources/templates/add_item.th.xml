@@ -7,6 +7,8 @@
     <attr sel="#title-field" th:field="*{title}"/>
     <attr sel="#deadline" th:field="*{deadline}"/>
     <attr sel="#details" th:field="*{details}"/>
+    <attr sel="#tag-input" th:id="${tag}" th:field="*{tags}" th:value="${tag}"/>
+    <attr sel="#tag-label" th:for="${tag}" th:text="${tag.string}"/>
     <attr sel="#button-submit" th:text="#{add.submit}"/>
     <attr sel="#button-cancel" th:text="#{add.cancel}"/>
     <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}"/>

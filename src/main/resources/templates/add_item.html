@@ -37,8 +37,8 @@
                 <div class="form-group">
                     <th:block th:each="tag : ${tags}">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" th:id="${tag}" th:field="*{tags}" th:value="${tag}">
-                            <label class="custom-control-label" th:for="${tag}" th:text="${tag.string}">Business</label>
+                            <input type="checkbox" class="custom-control-input" id="tag-input">
+                            <label class="custom-control-label" id="tag-label">PlaceHolder for Tag Text</label>
                         </div>
                     </th:block>
                 </div>
