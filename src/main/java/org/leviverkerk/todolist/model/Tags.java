@@ -1,9 +1,9 @@
 package org.leviverkerk.todolist.model;
 
 public enum Tags {
-    BUSINESS ("Business"),
-    PRIVATE ("Private"),
-    SCHOOL ("School");
+    BUSINESS ("business"),
+    PRIVATE ("private"),
+    SCHOOL ("school");
 
     public final String string;
 
