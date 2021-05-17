@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.swing.text.html.HTML;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -25,6 +27,11 @@ public class TodoItem {
 
     @Column(name = "deadline")
     private LocalDate deadline;
+
+    @Column(name = "tags")
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = Tags.class)
+    private List<Tags> tags;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
