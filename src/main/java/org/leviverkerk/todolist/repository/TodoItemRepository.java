@@ -19,6 +19,8 @@ public interface TodoItemRepository {
 
     List<Tags> getTags(int id);
 
+    void addTag(TodoItem item, Tags tag);
+
     void updateItem(TodoItem toUpdate);
 
     List<TodoItem> getItems();

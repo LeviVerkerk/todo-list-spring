@@ -94,6 +94,24 @@ public class TodoItemRepositoryHibernateImpl implements TodoItemRepository {
 
     @Override
     @Transactional
+    public void addTag(TodoItem item, Tags tag) {
+
+        try (Session session = entityManager.unwrap(Session.class)) {
+            TodoItem savedItem = session.get(TodoItem.class, item.getId());
+
+            if (savedItem != null){
+                savedItem.addTag(tag);
+                session.update(savedItem);
+            } else {
+                throw new NullPointerException("Item : " + item + " not found!");
+            }
+
+        }
+
+    }
+
+    @Override
+    @Transactional
     public List<TodoItem> getItems() {
         try (Session session = entityManager.unwrap(Session.class)) {
 
