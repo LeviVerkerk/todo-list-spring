@@ -4,6 +4,7 @@ import org.leviverkerk.todolist.model.User;
 import org.leviverkerk.todolist.model.UserDto;
 import org.leviverkerk.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +31,9 @@ public class UserService implements IUserService{
     }
     private boolean emailExist(String email) {
         return userRepository.findByEmail(email) != null;
+    }
+
+    public User getCurrentUser() {
+        return userRepository.getUserByUsername(((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
     }
 }

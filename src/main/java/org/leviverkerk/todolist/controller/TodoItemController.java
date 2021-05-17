@@ -71,7 +71,9 @@ public class TodoItemController {
 
         model.addAttribute("itemPage", todoItemPage);
 
-        model.addAttribute("username",  ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFirstName() );
+//        model.addAttribute("username",  userService.getCurrentUser().getFirstName() );
+
+        model.addAttribute("username", "test");
 
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");

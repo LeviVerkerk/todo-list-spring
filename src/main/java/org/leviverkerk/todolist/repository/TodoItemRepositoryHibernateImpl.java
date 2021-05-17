@@ -20,10 +20,12 @@ import java.util.List;
 public class TodoItemRepositoryHibernateImpl implements TodoItemRepository {
 
     private EntityManager entityManager;
+    private UserRepository userRepository;
 
     @Autowired
-    public TodoItemRepositoryHibernateImpl(EntityManager entityManager) {
+    public TodoItemRepositoryHibernateImpl(EntityManager entityManager, UserRepository userRepository) {
         this.entityManager = entityManager;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -74,7 +76,11 @@ public class TodoItemRepositoryHibernateImpl implements TodoItemRepository {
     public List<TodoItem> getItems() {
         try (Session session = entityManager.unwrap(Session.class)){
 
-            User user = session.get(User.class, ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+            User currentUser = getCurrentUser();
+
+            int currentId = currentUser == null ? -1 : currentUser.getId();
+
+            User user = session.get(User.class, currentId);
             if (user != null){
                 return user.getItems();
             }
@@ -91,5 +97,11 @@ public class TodoItemRepositoryHibernateImpl implements TodoItemRepository {
             log.info("[TodoItemService] updating todoItem to : {}", toUpdate);
             session.update(toUpdate);
         }
+    }
+
+    public User getCurrentUser() {
+        String currentUsername = ((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+
+        return userRepository.getUserByUsername(currentUsername);
     }
 }
