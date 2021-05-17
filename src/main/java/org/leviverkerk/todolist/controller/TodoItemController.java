@@ -2,6 +2,7 @@ package org.leviverkerk.todolist.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.leviverkerk.todolist.model.MyUserDetails;
+import org.leviverkerk.todolist.model.Tags;
 import org.leviverkerk.todolist.model.TodoItem;
 import org.leviverkerk.todolist.model.User;
 import org.leviverkerk.todolist.model.UserDto;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -100,17 +102,20 @@ public class TodoItemController {
         TodoItem todoItem = todoItemService.getItem(id);
 
         if (todoItem == null) {
-            todoItem = new TodoItem("", "", LocalDate.now());
+            todoItem = new TodoItem("", "", LocalDate.now(), new Tags[0]);
         }
 
         log.info("[EDITING] TodoItem: {}", todoItem);
         model.addAttribute(AttributeNames.TODO_ITEM, todoItem);
+        model.addAttribute("tags", Tags.values());
 
         return ViewNames.ADD_ITEM;
     }
 
     @PostMapping(Mappings.ADD_ITEM)
-    public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) TodoItem todoItem, @RequestParam(value = "action", required = true) String action) {
+    public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) TodoItem todoItem,
+                              @ModelAttribute("tags") Tags[] tags,
+                              @RequestParam(value = "action", required = true) String action) {
         log.info("todoItem from form {}", todoItem);
 
         if (action.equals("save")){
