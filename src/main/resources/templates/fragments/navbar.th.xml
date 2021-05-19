@@ -1,3 +1,4 @@
 <thlogic>
     <attr sel="#nav-fragment" th:fragment="navFragment"/>
+    <attr sel="#logout-btn" th:value="#{nav.logout}"/>
 </thlogic>
