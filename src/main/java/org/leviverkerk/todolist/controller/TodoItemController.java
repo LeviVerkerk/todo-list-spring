@@ -60,25 +60,24 @@ public class TodoItemController {
 
         Page<TodoItem> todoItemPage = todoItemService.findPaginated(PageRequest.of(currentPage - 1, pageSize), sortField, sortDir);
 
-        model.addAttribute("isDeleted", isDeleted);
+        model.addAttribute(AttributeNames.IS_DELETED, isDeleted);
 
-        model.addAttribute("itemPage", todoItemPage);
+        model.addAttribute(AttributeNames.ITEM_PAGE, todoItemPage);
 
-        model.addAttribute("username",  ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFirstName() );
+        model.addAttribute(AttributeNames.USERNAME,  ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFirstName() );
 
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("pageSize", pageSize);
+        model.addAttribute(AttributeNames.CURRENT_PAGE, currentPage);
+        model.addAttribute(AttributeNames.REVERSE_SORT_DIR, sortDir.equals("asc") ? "desc" : "asc");
+        model.addAttribute(AttributeNames.SORT_FIELD, sortField);
+        model.addAttribute(AttributeNames.SORT_DIR, sortDir);
+        model.addAttribute(AttributeNames.PAGE_SIZE, pageSize);
 
         int totalPages = todoItemPage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
+            model.addAttribute(AttributeNames.PAGE_NUMBERS, pageNumbers);
         }
 
         return ViewNames.ITEMS_LIST;
@@ -96,7 +95,7 @@ public class TodoItemController {
 
         log.info("[EDITING] TodoItem: {}", todoItem);
         model.addAttribute(AttributeNames.TODO_ITEM, todoItem);
-        model.addAttribute("tags", Tags.values());
+        model.addAttribute(AttributeNames.TAGS, Tags.values());
 
         return ViewNames.ADD_ITEM;
     }
