@@ -1,0 +1,10 @@
+//  customize colors
+$theme-colors: (
+  "warning": #f8852a,
+  "danger": #fc0707,
+  "success": #209200,
+  "dark": #1a1a1a
+);
+
+//  import bootstrap
+@import "../bootstrap/bootstrap";
