@@ -21,7 +21,7 @@
     <attr sel="#deadline-uparrow" th:if="${sortField == 'deadline' && sortDir == 'asc'}"/>
     <attr sel="#deadline-downarrow" th:if="${sortField == 'deadline' && sortDir == 'desc'}"/>
 
-    <attr sel="#view-header" th:text="#{list.header.view}"/>
+    <attr sel="#action-header" th:text="#{list.header.view}"/>
     <attr sel="#delete-header" th:text="#{list.header.delete}"/>
     <attr sel="#edit-header" th:text="#{list.header.edit}"/>
 
@@ -35,9 +35,9 @@
     <attr sel="#business-badge" th:if="${tag.string == 'business'}"/>
 
     <attr sel="#item-deadline" th:text="${#temporals.format(item.deadline, 'dd-MM-yyyy')}"/>
-    <attr sel="#item-view-button" th:href="@{showItem(id=${item.id})}" th:utext="#{list.header.view}"/>
-    <attr sel="#item-edit-button" th:href="@{addItem(id=${item.id})}" th:utext="#{list.header.edit}"/>
-    <attr sel="#item-delete-button" th:href="@{deleteItem(id=${item.id})}" th:utext="#{list.header.delete}"/>
+    <attr sel="#item-view-button" th:href="@{showItem(id=${item.id})}" th:title="#{list.button.view}"/>
+    <attr sel="#item-edit-button" th:href="@{addItem(id=${item.id})}" th:title="#{list.button.edit}"/>
+    <attr sel="#item-delete-button" th:href="@{deleteItem(id=${item.id})}" th:title="#{list.button.delete}"/>
 
     <attr sel="#page-bar" th:if="${itemPage.totalPages > 1}"/>
     <attr sel="#pages" th:each="pageNumber : ${pageNumbers}"/>
