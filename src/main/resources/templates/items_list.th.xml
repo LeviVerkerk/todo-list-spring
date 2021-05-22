@@ -21,9 +21,7 @@
     <attr sel="#deadline-uparrow" th:if="${sortField == 'deadline' && sortDir == 'asc'}"/>
     <attr sel="#deadline-downarrow" th:if="${sortField == 'deadline' && sortDir == 'desc'}"/>
 
-    <attr sel="#action-header" th:text="#{list.header.view}"/>
-    <attr sel="#delete-header" th:text="#{list.header.delete}"/>
-    <attr sel="#edit-header" th:text="#{list.header.edit}"/>
+    <attr sel="#action-header" th:text="#{list.header.action}"/>
 
     <attr sel="#items-table" th:each="item, iStat : ${itemPage.content}"
           th:classappend="${item.due ? 'table-danger' : ''}"/>

@@ -7,5 +7,13 @@ $theme-colors: (
   "info": #1e2d43,
 );
 
+.table{
+  th,
+  td {
+    border:none !important;
+  }
+}
+
+
 //  import bootstrap
 @import "../bootstrap/bootstrap";
