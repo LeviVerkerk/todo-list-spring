@@ -1,0 +1,19 @@
+//  customize colors
+$theme-colors: (
+  "primary": #2cace8,
+  "success": #42ae7e,
+  "danger": #f44336,
+  "warning": #c09e46,
+  "info": #1e2d43,
+);
+
+.table{
+  th,
+  td {
+    border:none !important;
+  }
+}
+
+
+//  import bootstrap
+@import "../bootstrap/bootstrap";

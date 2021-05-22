@@ -111,7 +111,7 @@ public class TodoItemController {
 
     @PostMapping(Mappings.ADD_ITEM)
     public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) TodoItem todoItem,
-                              @ModelAttribute("tags") Tags[] tags,
+//                              @ModelAttribute("tags") Tags[] tags,
                               @RequestParam(value = "action", required = true) String action) {
         log.info("todoItem from form {}", todoItem);
 
