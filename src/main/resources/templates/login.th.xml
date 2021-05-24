@@ -1,0 +1,17 @@
+<thlogic>
+    <!--    Head-->
+    <attr sel="#head" th:replace="~{fragments/head :: headFragment}" />
+
+    <!--    Alerts-->
+    <attr sel="#alert-authorization" th:if="${param.error}" />
+    <attr sel="#alert-logout" th:if="${param.logout}" />
+
+    <!--    Form-->
+    <attr sel="#form" th:action="@{/login}" />
+    <attr sel="#register-text" th:text="#{login.register.text}" />
+    <attr sel="#register-link" th:href="@{/registration}" th:text="#{login.register.link}" />
+
+    <!--    Footer-->
+    <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}" />
+
+</thlogic>
