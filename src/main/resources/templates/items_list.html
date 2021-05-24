@@ -19,62 +19,66 @@
             <a class="btn btn-danger btn-lg" id="new-item">Add new item!</a>
         </div>
     </div>
-<!--    <nav class="row">-->
-<!--        <div class="col">-->
-            <div class="alert alert-warning alert-dismissible fade show" id="delete-alert">
-                <h4 class="alert-heading" id="delete-title">Watch out!</h4>
-                <p id="delete-body">You are deleting a record!</p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-            </div>
-            <table class="table">
-                <tr>
-                    <th scope="col">
-                        <a id="title-sort">Title</a>
-                        <span class="float-right" id="title-uparrow"><i class="fas fa-arrow-up"></i></span>
-                        <span class="float-right" id="title-downarrow"><i class="fas fa-arrow-down"></i></span>
-                    </th>
-                    <th scope="col">
-                        <a id="deadline-sort">Deadline</a>
-                        <span class="float-right" id="deadline-uparrow"><i class="fas fa-arrow-up"></i></span>
-                        <span class="float-right" id="deadline-downarrow"><i class="fas fa-arrow-down"></i></span>
-                    </th>
-                    <th id="action-header" scope="col">View</th>
-                </tr>
+    <!--    <nav class="row">-->
+    <!--        <div class="col">-->
+    <div class="alert alert-warning alert-dismissible fade show" id="delete-alert">
+        <h4 class="alert-heading" id="delete-title">Watch out!</h4>
+        <p id="delete-body">You are deleting a record!</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+    </div>
+    <table class="table">
+        <tr>
+            <th scope="col">
+                <a id="title-sort">Title</a>
+                <span class="float-right" id="title-uparrow"><i class="fas fa-arrow-up"></i></span>
+                <span class="float-right" id="title-downarrow"><i class="fas fa-arrow-down"></i></span>
+            </th>
+            <th scope="col">
+                <a id="deadline-sort">Deadline</a>
+                <span class="float-right" id="deadline-uparrow"><i class="fas fa-arrow-up"></i></span>
+                <span class="float-right" id="deadline-downarrow"><i class="fas fa-arrow-down"></i></span>
+            </th>
+            <th id="action-header" scope="col">View</th>
+        </tr>
 
-                <tr class="" id="items-table" scope="row">
-                    <td class="d-flex justify-content-between">
-                        <p id="item-title"></p>
-                        <div class="d-flex justify-content-end">
-                            <div id="item-tags">
+        <tr class="" id="items-table" scope="row">
+            <td class="d-flex justify-content-between">
+                <p id="item-title"></p>
+                <div class="d-flex justify-content-end">
+                    <div id="item-tags">
                                 <span class="badge badge-pill badge-info align-self-center shadow-sm mx-1"
                                       id="private-badge">Private</span>
-                                <span class="badge badge-pill badge-danger align-self-center shadow-sm mx-1"
-                                      id="school-badge">School</span>
-                                <span class="badge badge-pill badge-success align-self-center shadow-sm mx-1"
-                                      id="business-badge">Business</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="" id="item-deadline"></td>
-                    <td class="d-flex justify-content-between">
-                        <a class="btn btn-info" id="item-view-button" data-toggle="tooltip" data-placement="top"> <i class="fas fa-eye"></i> </a>
-                        <a class="btn btn-primary" id="item-edit-button" data-toggle="tooltip" data-placement="top"> <i class="fas fa-edit"></i> </a>
-                        <a class="btn btn-danger" id="item-delete-button" data-toggle="tooltip" data-placement="top"> <i class="fas fa-trash-alt"></i> </a>
-                    </td>
-                </tr>
-            </table>
-            <nav class="paging">
-                <ul class="pagination justify-content-center" th:if="${itemPage.totalPages > 1}">
-                    <th:block th:each="pageNumber : ${pageNumbers}">
-                        <li class="page-item" th:classappend="${pageNumber==itemPage.number + 1} ? active">
-                            <a class="page-link"
-                               th:href="@{/items(size=${itemPage.size}, page=${pageNumber}, sort-field=${sortField}, sort-dir=${sortDir})}"
-                               th:text="${pageNumber}"></a>
-                        </li>
-                    </th:block>
-                </ul>
-            </nav>
-<!--        </div>-->
+                        <span class="badge badge-pill badge-danger align-self-center shadow-sm mx-1"
+                              id="school-badge">School</span>
+                        <span class="badge badge-pill badge-success align-self-center shadow-sm mx-1"
+                              id="business-badge">Business</span>
+                    </div>
+                </div>
+            </td>
+            <td class="" id="item-deadline"></td>
+            <td class="d-flex justify-content-between">
+                <a class="btn btn-info" id="item-view-button" data-toggle="tooltip" data-placement="top"> <i
+                        class="fas fa-eye"></i> <span class="d-none d-lg-inline" id="item-view-text">view</span> </a>
+                <a class="btn btn-primary" id="item-edit-button" data-toggle="tooltip" data-placement="top"> <i
+                        class="fas fa-edit"></i> <span class="d-none d-lg-inline" id="item-edit-text">edit</span> </a>
+                <a class="btn btn-danger" id="item-delete-button" data-toggle="tooltip" data-placement="top"> <i
+                        class="fas fa-trash-alt"></i> <span class="d-none d-lg-inline"
+                                                            id="item-delete-text">delete</span> </a>
+            </td>
+        </tr>
+    </table>
+    <nav class="paging">
+        <ul class="pagination justify-content-center" th:if="${itemPage.totalPages > 1}">
+            <th:block th:each="pageNumber : ${pageNumbers}">
+                <li class="page-item" th:classappend="${pageNumber==itemPage.number + 1} ? active">
+                    <a class="page-link"
+                       th:href="@{/items(size=${itemPage.size}, page=${pageNumber}, sort-field=${sortField}, sort-dir=${sortDir})}"
+                       th:text="${pageNumber}"></a>
+                </li>
+            </th:block>
+        </ul>
+    </nav>
+    <!--        </div>-->
 </div>
 
 <footer class="footer" id="footer">
