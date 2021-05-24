@@ -1,6 +1,7 @@
 package org.leviverkerk.todolist.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.leviverkerk.todolist.util.PasswordMatches;
 import org.leviverkerk.todolist.util.ValidEmail;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@NoArgsConstructor
 @PasswordMatches
 public class UserDto {
     @NotNull

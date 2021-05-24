@@ -23,7 +23,7 @@
 
     <attr sel="#action-header" th:text="#{list.header.action}"/>
 
-    <attr sel="#items-table" th:each="item, iStat : ${itemPage.content}"
+    <attr sel="#items-table" th:if="${itemPage.content} != null" th:each="item, iStat : ${itemPage.content}"
           th:classappend="${item.due ? 'table-danger' : ''}"/>
     <attr sel="#item-title" th:text="${item.title}"/>
 

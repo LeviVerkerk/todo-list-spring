@@ -1,11 +1,7 @@
 package org.leviverkerk.todolist.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.leviverkerk.todolist.model.MyUserDetails;
-import org.leviverkerk.todolist.model.Tags;
-import org.leviverkerk.todolist.model.TodoItem;
-import org.leviverkerk.todolist.model.User;
-import org.leviverkerk.todolist.model.UserDto;
+import org.leviverkerk.todolist.model.*;
 import org.leviverkerk.todolist.service.IUserService;
 import org.leviverkerk.todolist.service.TodoItemService;
 import org.leviverkerk.todolist.util.AttributeNames;
@@ -15,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -27,7 +23,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,7 +68,7 @@ public class TodoItemController {
 
         model.addAttribute(AttributeNames.ITEM_PAGE, todoItemPage);
 
-        model.addAttribute(AttributeNames.USERNAME,  ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFirstName() );
+        model.addAttribute(AttributeNames.USERNAME,  userService.getCurrentUser().getFirstName());
 
         model.addAttribute(AttributeNames.CURRENT_PAGE, currentPage);
         model.addAttribute(AttributeNames.REVERSE_SORT_DIR, sortDir.equals("asc") ? "desc" : "asc");
@@ -164,12 +159,14 @@ public class TodoItemController {
             HttpServletRequest request,
             Errors errors) {
 
+        log.info("Hi From here");
+
         try {
             User registered = userService.registerNewUserAccount(userDto);
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        return new ModelAndView(ViewNames.LOGIN, "user", userDto);
+        return new ModelAndView(ViewNames.HOME, "user", userDto);
     }
 }

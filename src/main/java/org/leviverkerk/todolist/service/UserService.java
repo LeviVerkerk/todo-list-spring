@@ -4,14 +4,22 @@ import org.leviverkerk.todolist.model.User;
 import org.leviverkerk.todolist.model.UserDto;
 import org.leviverkerk.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Locale;
 
 @Service
 public class UserService implements IUserService{
 
     @Autowired
     private UserRepository userRepository;
+
+
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public User registerNewUserAccount(UserDto userDto) throws Exception {
@@ -23,9 +31,10 @@ public class UserService implements IUserService{
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()).toLowerCase(Locale.ROOT));
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
+        user.setRoles(Arrays.asList("USER"));
 
         return userRepository.save(user);
     }
@@ -34,6 +43,14 @@ public class UserService implements IUserService{
     }
 
     public User getCurrentUser() {
-        return userRepository.getUserByUsername(((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String currentEmail;
+        if (principal instanceof org.springframework.security.core.userdetails.User){
+            currentEmail = ((org.springframework.security.core.userdetails.User) principal).getUsername();
+        } else {
+            currentEmail = principal.toString();
+        }
+
+        return userRepository.findByEmail(currentEmail);
     }
 }

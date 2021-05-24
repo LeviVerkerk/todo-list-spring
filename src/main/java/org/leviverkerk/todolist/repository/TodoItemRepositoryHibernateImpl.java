@@ -7,6 +7,7 @@ import org.leviverkerk.todolist.model.MyUserDetails;
 import org.leviverkerk.todolist.model.Tags;
 import org.leviverkerk.todolist.model.TodoItem;
 import org.leviverkerk.todolist.model.User;
+import org.leviverkerk.todolist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
@@ -23,11 +24,13 @@ public class TodoItemRepositoryHibernateImpl implements TodoItemRepository {
 
     private EntityManager entityManager;
     private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    public TodoItemRepositoryHibernateImpl(EntityManager entityManager, UserRepository userRepository) {
+    public TodoItemRepositoryHibernateImpl(EntityManager entityManager, UserRepository userRepository, UserService userService) {
         this.entityManager = entityManager;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class TodoItemRepositoryHibernateImpl implements TodoItemRepository {
     public void addItem(@NotNull TodoItem toAdd) {
         try (Session session = entityManager.unwrap(Session.class)) {
             log.debug("[TodoItemService] Getting current user..");
-            User user = session.get(User.class, ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+            User user = session.get(User.class, userService.getCurrentUser().getId());
             log.debug("[TodoItemService] Current user is : {}", user);
             toAdd.setUser(user);
             log.debug("[TodoItemService] Adding new item : {}", toAdd);
@@ -117,11 +120,12 @@ public class TodoItemRepositoryHibernateImpl implements TodoItemRepository {
     public List<TodoItem> getItems() {
         try (Session session = entityManager.unwrap(Session.class)){
 
-            User currentUser = getCurrentUser();
+            User currentUser = userService.getCurrentUser();
 
             int currentId = currentUser == null ? -1 : currentUser.getId();
 
             User user = session.get(User.class, currentId);
+
             if (user != null){
                 return user.getItems();
             }
@@ -138,11 +142,5 @@ public class TodoItemRepositoryHibernateImpl implements TodoItemRepository {
             log.info("[TodoItemService] updating todoItem to : {}", toUpdate);
             session.update(toUpdate);
         }
-    }
-
-    public User getCurrentUser() {
-        String currentUsername = ((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-
-        return userRepository.getUserByUsername(currentUsername);
     }
 }

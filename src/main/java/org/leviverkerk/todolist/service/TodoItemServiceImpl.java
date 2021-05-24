@@ -8,6 +8,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -88,7 +89,7 @@ public class TodoItemServiceImpl implements TodoItemService {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
-        List<TodoItem> list;
+        List<TodoItem> list = new ArrayList<>();
 
         if (items.size() < startItem) {
             list = Collections.emptyList();
