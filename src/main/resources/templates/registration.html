@@ -7,51 +7,51 @@
 <body>
 <div class="container my-5">
     <div class="row">
-        <div class="col-6 offset-3 col-md-4 offset-md-4 shadow">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4 shadow">
             <h3 class="text-center my-4">Sign In</h3>
-            <form action="/registration" th:object="${user}" method="POST" enctype="utf8">
+            <form th:action="@{/registration}" th:object="${user}" method="POST" enctype="utf8">
                 <div class="form-row">
                     <div class="form-group col-md">
-                        <label text="First Name">first</label>
+                        <label text="First Name" th:text="#{registration.first-name}">first</label>
                         <input class="form-control" placeholder="Enter first name..." th:field="*{firstName}"/>
-                        <p th:each="error: ${#fields.errors('firstName')}"
-                           th:text="${error}">Validation error</p>
+                        <div class="invalid-feedback" th:each="error: ${#fields.errors('firstName')}"
+                           th:text="${error}">Validation error</div>
                     </div>
                     <div class="form-group col-md">
-                        <label text="Last Name">last</label>
+                        <label text="Last Name" th:text="#{registration.last-name}">last</label>
                         <input class="form-control" placeholder="Enter last name..." th:field="*{lastName}"/>
-                        <p th:each="error: ${#fields.errors('lastName')}"
-                           th:text="${error}">Validation error</p>
+                        <div class="invalid-feedback" th:each="error: ${#fields.errors('lastName')}"
+                           th:text="${error}">Validation error</div>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label text="Email address">email</label>
-                        <input class="form-control" type="email" th:field="*{email}"/>
-                        <p th:each="error : ${#fields.errors('email')}"
-                           th:text="${error}">Validation error</p>
+                    <div class="form-group col-md">
+                        <label text="Email address" th:text="#{registration.email}">email</label>
+                        <input class="form-control" type="email" placeholder="example@example.com" th:field="*{email}"/>
+                        <div class="invalid-feedback" th:each="error : ${#fields.errors('email')}"
+                           th:text="${error}">Validation error</div>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group col-md">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Username" name="username" th:field="*{username}">
+                            <input type="text" class="form-control" th:placeholder="|#{registration.username}...|" name="username" th:field="*{username}">
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col">
-                        <label text="Password">password</label>
-                        <input type="password" class="form-control" placeholder="Password" name="password" th:field="*{password}">
-                        <p th:each="error : ${#fields.errors('password')}"
-                           th:text="${error}">Validation error</p>
+                    <div class="form-group col-xl">
+                        <label text="Password" th:text="#{registration.password}">password</label>
+                        <input type="password" class="form-control" th:placeholder="|#{registration.password}...|" name="password" th:field="*{password}">
+                        <div class="invalid-feedback" th:each="error : ${#fields.errors('password')}"
+                           th:text="${error}">Validation error</div>
                     </div>
-                    <div class="form-group col">
-                        <label text="Confirm Password">Confirm</label>
-                        <input type="password" class="form-control" placeholder="Password" name="password" th:field="*{matchingPassword}">
+                    <div class="form-group col-xl">
+                        <label th:text="#{registration.password-confirm}">Confirm</label>
+                        <input type="password" class="form-control" th:placeholder="|#{registration.password-confirm}...|" name="password" th:field="*{matchingPassword}">
                     </div>
                 </div>
 
@@ -60,10 +60,8 @@
                         th:name="${_csrf.parameterName}"
                         th:value="${_csrf.token}" />
 
-                <button type="submit" th:text="Submit" class="btn btn-lg btn-info btn-block my-3">submit</button>
+                <button type="submit" th:text="#{registration.submit}" class="btn btn-lg btn-info btn-block my-3">submit</button>
             </form>
-
-            <a class="btn btn-primary m-3" th:href="@{login}" text="Log In">login</a>
         </div>
     </div>
 
