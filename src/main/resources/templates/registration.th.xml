@@ -1,0 +1,40 @@
+<thlogic>
+
+    <!--    Head-->
+    <attr sel="#head" th:replace="~{fragments/head :: headFragment}" />
+
+    <!--    Title-->
+    <attr sel="#title" th:text="#{registration.title}" />
+
+    <!--    Form-->
+    <attr sel="#form" th:action="@{/registration}" th:object="${user}" />
+
+    <attr sel="#form-firstname-label" th:text="#{registration.first-name}" />
+    <attr sel="#form-firstname-input" th:field="*{firstName}" th:placeholder="|#{registration.first-name}...|" />
+    <attr sel="#form-firstname-error" th:each="error: ${#fields.errors('firstName')}" th:text="${error}" />
+
+    <attr sel="#form-lastname-label" th:text="#{registration.last-name}" />
+    <attr sel="#form-lastname-input" th:field="*{lastName}" th:placeholder="|#{registration.last-name}...|" />
+    <attr sel="#form-lastname-error" th:each="error: ${#fields.errors('lastName')}" th:text="${error}" />
+
+    <attr sel="#form-email-label" th:text="#{registration.email}" />
+    <attr sel="#form-email-input" th:field="*{email}" />
+    <attr sel="#form-email-error" th:each="error: ${#fields.errors('email')}" th:text="${error}" />
+
+    <attr sel="#form-username-input" th:placeholder="|#{registration.username}...|" th:field="*{username}" />
+
+    <attr sel="#form-password-label" th:text="#{registration.password}" />
+    <attr sel="#form-password-input" th:placeholder="|#{registration.password}...|" th:field="*{password}" />
+    <attr sel="#form-password-error" th:each="error : ${#fields.errors('password')}" th:text="${error}" />
+
+    <attr sel="#form-passwordconfirm-label" th:text="#{registration.password-confirm}" />
+    <attr sel="#form-passwordconfirm-input" th:placeholder="|#{registration.password-confirm}...|"
+        th:field="*{matchingPassword}" />
+
+    <attr sel="#csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <attr sel="#form-submit" th:text="#{registration.submit}" />
+
+    <!--    Footer-->
+    <attr sel="footer" th:replace="~{fragments/footer :: footerFragment}" />
+</thlogic>
