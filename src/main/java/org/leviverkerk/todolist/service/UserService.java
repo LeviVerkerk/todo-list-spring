@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Locale;
 
 @Service
@@ -18,7 +20,7 @@ public class UserService implements IUserService{
     @Autowired
     private UserRepository userRepository;
 
-
+    @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -31,10 +33,11 @@ public class UserService implements IUserService{
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()).toLowerCase(Locale.ROOT));
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
-        user.setRoles(Arrays.asList("USER"));
+        user.setEnabled(true);
+        user.setRoles(Collections.singletonList("USER"));
 
         return userRepository.save(user);
     }

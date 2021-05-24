@@ -7,8 +7,8 @@
 <body>
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4 shadow">
-            <h3 class="text-center my-4">Sign In</h3>
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4 p-3 mb-4 shadow">
+            <h3 class="text-center my-4" th:text="#{registration.title}">Sign In</h3>
             <form th:action="@{/registration}" th:object="${user}" method="POST" enctype="utf8">
                 <div class="form-row">
                     <div class="form-group col-md">

@@ -3,10 +3,7 @@ package org.leviverkerk.todolist.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity
@@ -27,9 +24,6 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @Column(name = "role")
-    private String role;
-
     @Column(name = "first_name")
     private String firstName;
 
@@ -39,8 +33,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Transient
-    private List<String> roles = Collections.emptyList();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    private List<String> roles;
 
     @OneToMany(fetch = FetchType.LAZY,
         mappedBy = "user",
@@ -63,7 +59,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
-                ", role='" + role + '\'' +
+                ", roles='" + roles + '\'' +
                 '}';
     }
 }

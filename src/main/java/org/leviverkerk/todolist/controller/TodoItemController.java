@@ -159,9 +159,7 @@ public class TodoItemController {
             HttpServletRequest request,
             Errors errors) {
 
-        if (errors.hasErrors()){
-            return new ModelAndView(ViewNames.REGISTER);
-        }
+        log.debug("Registering new user : {}",userDto);
 
         try {
             User registered = userService.registerNewUserAccount(userDto);
