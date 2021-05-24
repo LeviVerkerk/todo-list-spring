@@ -8,6 +8,7 @@
 
     <!--    Form-->
     <attr sel="#form" th:action="@{/login}" />
+    <attr sel="#remember" th:text="#{registration.remember}" />
     <attr sel="#register-text" th:text="#{login.register.text}" />
     <attr sel="#register-link" th:href="@{/registration}" th:text="#{login.register.link}" />
 
